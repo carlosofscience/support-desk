@@ -55,7 +55,7 @@ export const authSlice = createSlice({
       state.isLoading = false
       state.isError =  false
       state.isSuccess =  false
-      state.isLoading =  ''
+      state.message =  ''
     }
   },
   extraReducers: (builder)=>{ //to add cases 
