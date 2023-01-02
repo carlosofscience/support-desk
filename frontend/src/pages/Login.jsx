@@ -26,6 +26,7 @@ function Login() {
 
     //redirect when logged in
     if (isSuccess || user) {
+      dispatch(reset);
       navigate("/");
     }
 

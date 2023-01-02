@@ -1,7 +1,4 @@
 const asyncHandler = require('express-async-handler')
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-
 const User = require('../models/userModel')
 const Ticket = require("../models/ticketModel");
 
@@ -62,14 +59,14 @@ const createTicket = asyncHandler( async (req, res) => {
   //Get user using the id in the jwt
   const user = await User.findById(req.user.id);
   if (!user) {
-    res.status(104);
+    res.status(404);
     throw new Error("User no found");
   }
 
   const ticket = await Ticket.create({
     product, description, user: req.user.id, status:'new'
   })
-
+  
   res.status(200).json(ticket);
 })
 
