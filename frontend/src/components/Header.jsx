@@ -17,7 +17,6 @@ function Header() {
 
   return (
     <header className="header">
-      SearchSearch
       <div className="logo">
         <Link to="/">Support Desk</Link>
       </div>
