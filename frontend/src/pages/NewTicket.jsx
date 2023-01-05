@@ -34,7 +34,7 @@ function NewTicket() {
 
   return (
     <>
-      <BackButton url={'/'}>
+      <BackButton>
         Back
       </BackButton>
       <section className="heading">
