@@ -12,26 +12,11 @@ function Login() {
     password: "",
   });
 
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const {email, password } = formData;
-  const { user, isLoading, isError, isSuccess, message } = useSelector(state => state.auth)
-
-  useEffect(() => {
-
-    if (isError) {
-      toast.error(message);
-    }
-
-    //redirect when logged in
-    if (isSuccess || user) {
-      dispatch(reset);
-      navigate("/");
-    }
-
-    dispatch(reset);
-  }, [isError, isSuccess, user, message, navigate, dispatch]);
+  const { email, password } = formData;
+  const { isLoading } = useSelector((state) => state.auth);
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -39,6 +24,12 @@ function Login() {
       [e.target.name]: e.target.value,
     }));
   };
+
+  // NOTE: no need for useEffect here as we can catch the
+  // AsyncThunkAction rejection in our onSubmit or redirect them on the
+  // resolution
+  // Side effects shoulld go in event handlers where possible
+  // source: - https://beta.reactjs.org/learn/keeping-components-pure#where-you-can-cause-side-effects
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -48,10 +39,16 @@ function Login() {
       password,
     };
 
-    dispatch(login(userData));
+    dispatch(login(userData))
+      .unwrap()
+      .then((user)=>{
+        toast.success(`Logged in as ${user.name}`)
+        navigate('/')
+      })
+      .catch(toast.error)
   };
 
-  if (isLoading) return <Spinner />
+  if (isLoading) return <Spinner />;
 
   return (
     <>

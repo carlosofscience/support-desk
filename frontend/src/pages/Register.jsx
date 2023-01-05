@@ -21,21 +21,7 @@ function Register() {
 
   const dispatch = useDispatch()
 
-  const { user, isLoading, isError, isSuccess, message } = useSelector(state => state.auth)
-
-  useEffect(()=>{
-    if(isError){
-      toast.error(message)
-    }
-
-    //redirect when logged in
-    if(isSuccess || user){
-      dispatch(reset);
-      navigate('/')
-    }
-
-    dispatch(reset)
-  }, [isError, isSuccess, user, message, navigate, dispatch])
+  const { isLoading } = useSelector(state => state.auth)
 
   const onChange = (e)=>{
     setFormData((prevState => ({
@@ -56,6 +42,15 @@ function Register() {
         password,
       }
       dispatch(register(userData))
+        .unwrap()
+        .then((user) => {
+          // NOTE: by unwrapping the AsyncThunkAction we can navigate the user after
+          // getting a good response from our API or catch the AsyncThunkAction
+          // rejection to show an error message
+          toast.success(` Hey ${user.name}, you're now registered!`);
+          navigate("/");
+        })
+        .catch(toast.error);
     }
   }
 
