@@ -1,8 +1,6 @@
 {
-  "homepage": "https://support-desk-iota.vercel.app/",  
   "name": "support-desk",
   "version": "1.0.0",
-  "private": true,
   "description": "support ticket app",
   "main": "server.js",
   "scripts": {
