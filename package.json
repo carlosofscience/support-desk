@@ -1,15 +1,18 @@
 {
+  "homepage": "https://support-desk-iota.vercel.app/",  
   "name": "support-desk",
   "version": "1.0.0",
+  "private": true,
   "description": "support ticket app",
   "main": "server.js",
   "scripts": {
+    "vercel": "vercel dev",
     "start": "node backend/server.js",
-    "build": "npm i && cd frontend && npm i && npm run build --output public",
+    "build": "npm i && cd frontend && npm i && npm run build",
     "server": "nodemon backend/server.js",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild":"NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
   "author": "Carlos Sandoval",
   "license": "MIT",
@@ -24,6 +27,7 @@
     "mongoose": "^6.8.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "vercel": "^28.13.1"
   }
 }
